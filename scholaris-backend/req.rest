@@ -1,0 +1,31 @@
+GET http://localhost:3000/api/auth/ok
+Origin: http://localhost:3000
+
+
+### create user
+POST http://localhost:3000/api/auth/sign-up/email
+Content-Type: application/json
+Origin: http://localhost:5173
+
+{
+    "name": "zaccodder",
+    "email": "zaccodder@gmail.com",
+    "password": "zaccodder"
+}
+
+
+### login user
+POST http://localhost:3000/api/auth/sign-in/email
+Content-Type: application/json
+Origin: http://localhost:5173
+
+{
+    "email": "zaccodder@gmail.com",
+    "password": "zaccodder"
+}
+
+
+### get current user
+GET http://localhost:3000/api/v1/user
+Authorization: mYZ8ShPtMxD85kzfwpozlz8QxKNbthqJ
+Origin: http://localhost:5173
