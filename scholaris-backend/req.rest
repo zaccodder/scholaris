@@ -1,3 +1,6 @@
+@auth_token={{$processEnv AUTH_TOKEN}}
+@schoolId=f3c80ed7-2ad6-47b1-b13a-b5e9dca09eb7
+@departmentId=66958e5b-9f76-442b-bab8-ec2e2b51ba4f
 GET http://localhost:3000/api/auth/ok
 Origin: http://localhost:3000
 
@@ -26,6 +29,85 @@ Origin: http://localhost:5173
 
 
 ### get current user
-GET http://localhost:3000/api/v1/user
-Authorization: mYZ8ShPtMxD85kzfwpozlz8QxKNbthqJ
+GET http://localhost:3000/api/v1/users
+Authorization: {{auth_token}}
 Origin: http://localhost:5173
+
+
+### create school
+POST http://localhost:3000/api/v1/schools
+Authorization: {{auth_token}}
+Origin: http://localhost:5173
+Content-Type: application/json
+
+{
+    "name": "zaccodder school",
+    "email": "zaccodderschool@gmail.com"
+}
+
+
+### get school by id
+GET http://localhost:3000/api/v1/schools/{{schoolId}}
+Authorization: {{auth_token}}
+Origin: http://localhost:5173
+
+### update school by id
+PUT http://localhost:3000/api/v1/schools/{{schoolId}}
+Authorization:{{auth_token}}
+Origin: http://localhost:5173
+Content-Type: application/json
+
+{
+    "name": "zaccodder school updated",
+    "email": "zaccodderschool@gmail.com",
+    "phone": "08104819331",
+    "address": "madigawa"
+}
+
+### delete school by id
+DELETE http://localhost:3000/api/v1/schools/{{schoolId}}
+Authorization: {{auth_token}}
+Origin: http://localhost:5173
+
+
+
+### create department
+POST http://localhost:3000/api/v1/departments
+Authorization: {{auth_token}}
+Content-Type: application/json
+Origin: http://localhost:5173
+
+{
+    "name": "Mathematics",
+    "schoolId": "{{schoolId}}"
+}
+
+
+### get departments
+GET http://localhost:3000/api/v1/departments
+Authorization: El41mKODI9SZHCnS5BqPaeeRF1fGawL1
+Origin: http://localhost:5173
+
+### get single department
+GET http://localhost:3000/api/v1/departments/{{departmentId}}
+Authorization: {{auth_token}}
+Origin: http://localhost:5173
+
+### update department
+PUT http://localhost:3000/api/v1/departments/{{departmentId}}
+Authorization: {{auth_token}}
+Content-Type: application/json
+Origin: http://localhost:5173
+
+{
+    "name": "Mathematics"
+}
+
+### delete department
+DELETE http://localhost:3000/api/v1/departments/{{departmentId}}
+Authorization: {{auth_token}}
+Origin: http://localhost:5173
+
+
+
+

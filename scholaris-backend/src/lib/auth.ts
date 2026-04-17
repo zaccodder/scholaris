@@ -1,8 +1,8 @@
-import { betterAuth } from "better-auth";
-import { admin as adminPlugin } from "better-auth/plugins";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import db from "@/drizzle/db.js";
-import * as schema from "@/drizzle/schema.js";
+import { betterAuth } from 'better-auth'
+import { admin as adminPlugin } from 'better-auth/plugins'
+import { drizzleAdapter } from 'better-auth/adapters/drizzle'
+import db from '@/drizzle/db.js'
+import * as schema from '@/drizzle/schema.js'
 import {
   ac,
   adminRole,
@@ -10,11 +10,11 @@ import {
   teacherRole,
   studentRole,
   parentRole,
-} from "@/utils/permissions.js";
+} from '@/utils/permissions.js'
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
-    provider: "pg",
+    provider: 'pg',
     schema,
   }),
 
@@ -31,8 +31,8 @@ export const auth = betterAuth({
         parent: parentRole,
       },
       // Roles that can call admin-level API endpoints (ban, impersonate, etc.)
-      adminRoles: ["admin", "manager"],
-      defaultRole: "student",
+      adminRoles: ['admin', 'manager'],
+      defaultRole: 'student',
     }),
   ],
 
@@ -40,11 +40,11 @@ export const auth = betterAuth({
     additionalFields: {
       // Stored on the user row — not input by the user themselves
       role: {
-        type: "string",
-        defaultValue: "student",
+        type: 'string',
+        defaultValue: 'student',
         input: false,
         returned: true,
       },
     },
   },
-});
+})

@@ -1,24 +1,32 @@
-import type { NextFunction, Request, Response } from "express";
-import { ZodError } from "zod";
+import { CustomError } from '@/errors/index.js'
+import logger from '@/lib/winston.js'
+import type { NextFunction, Request, Response } from 'express'
+import { StatusCodes } from 'http-status-codes'
+import { ZodError } from 'zod'
 
-export const errorHandler = (
+const errorHandler = (
   err: Error,
   req: Request,
   res: Response,
   _next: NextFunction,
 ) => {
-  if (err instanceof ZodError) {
-    return res.status(400).json({
+  if (err instanceof CustomError) {
+    logger.error(err)
+    return res
+      .status(err.statusCode)
+      .json({ success: false, error: err.message })
+  } else if (err instanceof ZodError) {
+    logger.error(err)
+    return res.status(StatusCodes.BAD_REQUEST).json({
       success: false,
-      error: err.flatten(),
-    });
+      error: err.issues.map((issue) => issue.message),
+    })
   }
 
-  if (err instanceof Error) {
-    return res.status(400).json({ success: false, error: err.message });
-  }
+  logger.error(err)
+  return res
+    .status(StatusCodes.INTERNAL_SERVER_ERROR)
+    .json({ success: false, error: 'Internal Server Error' })
+}
 
-  res.status(500).json({ success: false, error: "Internal server error." });
-};
-
-export default errorHandler;
+export default errorHandler
