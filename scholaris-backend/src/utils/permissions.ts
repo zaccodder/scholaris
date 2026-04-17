@@ -5,7 +5,7 @@ import { defaultStatements, adminAc } from "better-auth/plugins/admin/access";
 // Every resource in your schema gets listed here with its possible actions.
 // Use `as const` — TypeScript needs the literal types for role inference.
 
-const statement = {
+export const statement = {
   ...defaultStatements,
 
   // school-level management
@@ -14,7 +14,7 @@ const statement = {
   // people
   teacher: ["create", "read", "update", "delete"],
   student: ["create", "read", "update", "delete"],
-  guardian: ["create", "read", "update", "delete"],
+  parent: ["create", "read", "update", "delete"],
 
   // academic structure
   department: ["create", "read", "update", "delete"],
@@ -43,7 +43,7 @@ export const adminRole = ac.newRole({
   school: ["create", "read", "update", "delete"],
   teacher: ["create", "read", "update", "delete"],
   student: ["create", "read", "update", "delete"],
-  guardian: ["create", "read", "update", "delete"],
+  parent: ["create", "read", "update", "delete"],
   department: ["create", "read", "update", "delete"],
   course: ["create", "read", "update", "delete"],
   class: ["create", "read", "update", "delete"],
@@ -61,7 +61,7 @@ export const managerRole = ac.newRole({
   school: ["read", "update"],
   teacher: ["create", "read", "update", "delete"],
   student: ["create", "read", "update", "delete"],
-  guardian: ["create", "read", "update", "delete"],
+  parent: ["create", "read", "update", "delete"],
   department: ["create", "read", "update", "delete"],
   course: ["create", "read", "update", "delete"],
   class: ["create", "read", "update", "delete"],
@@ -79,7 +79,7 @@ export const teacherRole = ac.newRole({
   school: ["read"],
   teacher: ["read"],
   student: ["read"],
-  guardian: ["read"],
+  parent: ["read"],
   department: ["read"],
   course: ["read"],
   class: ["read", "update"],
